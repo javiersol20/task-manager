@@ -4,6 +4,9 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * User
@@ -11,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="uq_email", columns={"email"})})
  * @ORM\Entity
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -33,6 +36,8 @@ class User
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=150, nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Regex("/[a-zA-Z ]+/")
      */
     private $name;
 
@@ -40,6 +45,8 @@ class User
      * @var string
      *
      * @ORM\Column(name="surname", type="string", length=150, nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Regex("/[a-zA-Z ]+/")
      */
     private $surname;
 
@@ -47,6 +54,10 @@ class User
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Email(
+     *     message="El email '{{ value}}' no es valido"
+     * )
      */
     private $email;
 
@@ -54,11 +65,12 @@ class User
      * @var string|null
      *
      * @ORM\Column(name="password", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
      */
     private $password;
 
     /**
-     * @var \DateTime|null
+     * @var \Date|null
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
@@ -139,12 +151,12 @@ class User
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    public function setCreatedAt($createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -159,4 +171,23 @@ class User
         return $this->task;
     }
 
+    public function getRoles()
+    {
+        return ["ROLE_USER"];
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials()
+    {
+
+    }
 }
