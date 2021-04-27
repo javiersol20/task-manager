@@ -22,9 +22,11 @@
 
                 {% if app.user %}
                     <li><a href="{{ path('task') }}">Inicio</a></li>
-                    <li><a href="">Mis tareas</a></li>
-                    <li class="right"><a href="">{{ app.user.name ~" "~ app.user.surname }}</a></li>
+
+                    <li><a href="{{ path('task_creation') }}">Crear tarea</a></li>
                     <li class="right"><a href="{{ path('logout') }}">Cerrar sesión</a></li>
+
+                    <li class="right"><a href="">{{ app.user.name ~" "~ app.user.surname }}</a></li>
 
                 {% else %}
                     <li><a href="{{ path('login') }}">Login</a></li>

@@ -25,7 +25,9 @@ label{
 }
 input[type="text"],
 input[type="password"],
-input[type="email"]{
+input[type="email"],
+textarea,
+select{
     width: 70%;
     padding: 8px;
 
@@ -89,4 +91,39 @@ input[type="submit"]:hover{
     float: right !important;
     border-right: 0px;
     border-left: 1px solid #ccc;
+}
+table{
+    width: 100%;
+}
+table th{
+    background: #f6f6f6;
+    padding: 15px;
+    padding-right: 25px;
+    padding-left: 25px;
+    border-bottom: 1px solid #eee;
+}
+
+table td{
+    background: #e9ffea;
+    padding: 15px;
+    padding-right: 25px;
+    padding-left: 25px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+.button-view a{
+    text-decoration: none;
+    border: 1px solid green;
+    padding: 4px;
+    color: white;
+    background: #00AA33;
+}
+.button-view .delete{
+    background: red;
+}
+.button-view .edit{
+    background: orange;
+}
+.data-task{
+    color: gray;
 }
